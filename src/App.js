@@ -1,5 +1,10 @@
 import "./App.css";
-import { Navigate, RouterProvider, createBrowserRouter, createHashRouter } from "react-router-dom";
+import {
+  Navigate,
+  RouterProvider,
+  createBrowserRouter,
+  createHashRouter,
+} from "react-router-dom";
 import Layout from "./Components/Layout/Layout";
 import Login from "./Components/Login/Login";
 import Register from "./Components/Register/Register";
@@ -29,7 +34,7 @@ let router = createHashRouter([
         index: true,
         element: (
           <ProtectedRoute>
-            <Home/>
+            <Home />
           </ProtectedRoute>
         ),
       },
@@ -114,7 +119,8 @@ let router = createHashRouter([
             <ProductDetails />
           </ProtectedRoute>
         ),
-      },{
+      },
+      {
         path: "profile",
         element: (
           <ProtectedRoute>
@@ -123,7 +129,14 @@ let router = createHashRouter([
         ),
       },
 
-      { path: "*", element: <NotFound /> },
+      {
+        path: "*",
+        element: (
+          <ProtectedRoute>
+            <NotFound />
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
 ]);

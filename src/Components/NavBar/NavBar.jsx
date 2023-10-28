@@ -16,7 +16,7 @@ export default function NavBar() {
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary ">
         <div className="container">
-          <NavLink className="navbar-brand" to="/">
+          <NavLink className="navbar-brand" to="home">
             <img src={logo} alt="fresh cart logo" />
           </NavLink>
           <button
@@ -34,7 +34,7 @@ export default function NavBar() {
             {userToken ? (
               <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="/">
+                  <NavLink className="nav-link" to="/home">
                     Home
                   </NavLink>
                 </li>
