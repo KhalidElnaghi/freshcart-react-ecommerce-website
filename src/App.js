@@ -1,5 +1,5 @@
 import "./App.css";
-import { Navigate, RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Navigate, RouterProvider, createBrowserRouter, createHashRouter } from "react-router-dom";
 import Layout from "./Components/Layout/Layout";
 import Login from "./Components/Login/Login";
 import Register from "./Components/Register/Register";
@@ -20,7 +20,7 @@ import CartContextProvider from "./Context/CartContext";
 import { Toaster } from "react-hot-toast";
 import Profile from "./Components/Profile/Profile";
 
-let router = createBrowserRouter([
+let router = createHashRouter([
   {
     path: "/",
     element: <Layout />,
