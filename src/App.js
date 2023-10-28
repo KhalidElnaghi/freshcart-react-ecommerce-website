@@ -29,7 +29,7 @@ let router = createBrowserRouter([
         index: true,
         element: (
           <ProtectedRoute>
-            <Navigate to={"home"} />
+            <Navigate to={"/"} />
           </ProtectedRoute>
         ),
       },
