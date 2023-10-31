@@ -1,10 +1,5 @@
 import "./App.css";
-import {
-  Navigate,
-  RouterProvider,
-  createBrowserRouter,
-  createHashRouter,
-} from "react-router-dom";
+import { RouterProvider, createHashRouter } from "react-router-dom";
 import Layout from "./Components/Layout/Layout";
 import Login from "./Components/Login/Login";
 import Register from "./Components/Register/Register";
@@ -17,7 +12,7 @@ import Cart from "./Components/Cart/Cart";
 import NotFound from "./Components/NotFound/NotFound";
 import Contact from "./Components/Contact/Contact";
 import { useContext, useEffect } from "react";
-import { UserTokenContext } from "./Context/UserTokenContext";
+import { UserContext } from "./Context/UserContext";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 import LogingProtectedRoute from "./Components/logingProtectedRoute/logingProtectedRoute";
 import ProductDetails from "./Components/ProductDetails/ProductDetails";
@@ -27,7 +22,7 @@ import Profile from "./Components/Profile/Profile";
 
 let router = createHashRouter([
   {
-    path: "/",
+    path: "",
     element: <Layout />,
     children: [
       {
@@ -40,7 +35,7 @@ let router = createHashRouter([
       },
 
       {
-        path: "login",
+        path: "/login",
         element: (
           <LogingProtectedRoute>
             <Login />
@@ -48,7 +43,7 @@ let router = createHashRouter([
         ),
       },
       {
-        path: "register",
+        path: "/register",
         element: (
           <LogingProtectedRoute>
             <Register />
@@ -57,7 +52,7 @@ let router = createHashRouter([
       },
 
       {
-        path: "home",
+        path: "/home",
         element: (
           <ProtectedRoute>
             <Home />
@@ -65,7 +60,7 @@ let router = createHashRouter([
         ),
       },
       {
-        path: "about",
+        path: "/about",
         element: (
           <ProtectedRoute>
             <About />
@@ -73,7 +68,7 @@ let router = createHashRouter([
         ),
       },
       {
-        path: "products",
+        path: "/products",
         element: (
           <ProtectedRoute>
             <Products />
@@ -81,7 +76,7 @@ let router = createHashRouter([
         ),
       },
       {
-        path: "brands",
+        path: "/brands",
         element: (
           <ProtectedRoute>
             <Brands />
@@ -89,7 +84,7 @@ let router = createHashRouter([
         ),
       },
       {
-        path: "categories",
+        path: "/categories",
         element: (
           <ProtectedRoute>
             <Categories />
@@ -97,7 +92,7 @@ let router = createHashRouter([
         ),
       },
       {
-        path: "cart",
+        path: "/cart",
         element: (
           <ProtectedRoute>
             <Cart />
@@ -105,7 +100,7 @@ let router = createHashRouter([
         ),
       },
       {
-        path: "contact",
+        path: "/contact",
         element: (
           <ProtectedRoute>
             <Contact />
@@ -113,7 +108,7 @@ let router = createHashRouter([
         ),
       },
       {
-        path: "productdetails/:id",
+        path: "/productdetails/:id",
         element: (
           <ProtectedRoute>
             <ProductDetails />
@@ -121,7 +116,7 @@ let router = createHashRouter([
         ),
       },
       {
-        path: "profile",
+        path: "/profile",
         element: (
           <ProtectedRoute>
             <Profile />
@@ -142,7 +137,7 @@ let router = createHashRouter([
 ]);
 
 function App() {
-  let { setUserToken } = useContext(UserTokenContext);
+  let { setUserToken } = useContext(UserContext);
 
   useEffect(() => {
     if (localStorage.getItem("freshcartUserToken"))

@@ -4,19 +4,24 @@ import { CartContext } from "../../Context/CartContext";
 import { Link } from "react-router-dom";
 
 export default function Cart() {
-  let { getLoggedUserCart, deleteCartItem, clearAllCart, updateProductQuantity } =
-    useContext(CartContext);
-  let [cartDetails, setCartDetails] = useState("");
-  let cartItems = document.querySelector(".cart-items");
+  let {
+    getLoggedUserCart,
+    deleteCartItem,
+    clearAllCart,
+    updateProductQuantity,
+    setCartItemCount,
+  } = useContext(CartContext);
+
+  let [cartDetails, setCartDetails] = useState(null);
 
   const getCart = async () => {
     let { data } = await getLoggedUserCart();
-
     setCartDetails(data);
+    setCartItemCount(data.numOfCartItems || 0);
   };
 
   const deleteItem = async (productId) => {
-    let data = await deleteCartItem(productId);
+    let { data } = await deleteCartItem(productId);
     setCartDetails(data);
   };
 
@@ -33,8 +38,6 @@ export default function Cart() {
   useEffect(() => {
     getCart();
   }, []);
-
-  if (cartDetails) cartItems.textContent = cartDetails?.numOfCartItems;
 
   return (
     <>
@@ -63,7 +66,7 @@ export default function Cart() {
             </div>
           </div>
 
-          {cartDetails.data.products.map((product) => {
+          {cartDetails.data.products?.map((product) => {
             return (
               <div key={product.product.id} className="row border-bottom py-2 ">
                 <div className="col-md-2">
@@ -75,7 +78,7 @@ export default function Cart() {
                   <div className="w-100 d-flex justify-content-between align-items-center">
                     <div>
                       <h3 className="h6">
-                        <Link to={`/productdetails/${product.product._id}`}>
+                        <Link to={`/productdetails/${product.product.id}`}>
                           {product.product.title.split(" ").slice(0, 3).join(" ")}
                         </Link>
                       </h3>
@@ -85,7 +88,7 @@ export default function Cart() {
                     <div>
                       <button
                         onClick={() => {
-                          updateCount(product.product._id, product.count + 1);
+                          updateCount(product.product.id, product.count + 1);
                         }}
                         className="btn bg-main py-0 px-2"
                       >
@@ -94,7 +97,7 @@ export default function Cart() {
                       <span className="mx-2 product-count">{product.count}</span>
                       <button
                         onClick={() => {
-                          updateCount(product.product._id, product.count - 1);
+                          updateCount(product.product.id, product.count - 1);
                         }}
                         className="btn btn-outline-danger py-0 px-2"
                       >
@@ -104,7 +107,7 @@ export default function Cart() {
                   </div>
                   <button
                     onClick={() => {
-                      deleteItem(product.product._id);
+                      deleteItem(product.product.id);
                     }}
                     className="btn  font-sm p-0"
                   >

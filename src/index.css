@@ -10,6 +10,7 @@
 
 body {
   font-family: var(--font-family) !important;
+  scroll-padding-top: 50px;
 }
 
 .rating-color {
@@ -76,7 +77,6 @@ a:hover {
   color: var(--main-color) !important;
   border: 1px solid var(--main-color) !important;
 }
-
 
 .slick-dots li button:before {
   content: "" !important;

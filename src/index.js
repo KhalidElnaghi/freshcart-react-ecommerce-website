@@ -5,7 +5,7 @@ import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import UserTokenContextProvider from "./Context/UserTokenContext";
+import UserContextProvider from "./Context/UserContext";
 import { QueryClient, QueryClientProvider } from "react-query";
 // import { ReactQueryDevtools } from "react-query/devtools";
 import "slick-carousel/slick/slick.css";
@@ -15,9 +15,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 let queryClient = new QueryClient();
 root.render(
   <QueryClientProvider client={queryClient}>
-    <UserTokenContextProvider>
+    <UserContextProvider>
       <App />
-    </UserTokenContextProvider>
+    </UserContextProvider>
     {/* <ReactQueryDevtools initialIsOpen="false" position="top-right" /> */}
   </QueryClientProvider>
 );

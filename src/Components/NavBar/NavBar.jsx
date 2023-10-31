@@ -1,20 +1,29 @@
 import React, { useContext } from "react";
+import Style from "./NavBar.module.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/freshcart-logo.svg";
-import { UserTokenContext } from "../../Context/UserTokenContext";
+import { UserContext } from "../../Context/UserContext";
+import profileimg from "../../assets/images/profile.svg";
+import { CartContext } from "../../Context/CartContext";
 
 export default function NavBar() {
-  let { userToken, setUserToken } = useContext(UserTokenContext);
+  let { userToken, setUserToken, setUserData } = useContext(UserContext);
+  let { cartItemCount } = useContext(CartContext);
   let navigate = useNavigate();
 
   const logOut = () => {
     localStorage.removeItem("freshcartUserToken");
+    localStorage.removeItem("userData");
     setUserToken(null);
+    setUserData(null);
     navigate("./login");
   };
+
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary ">
+      <nav
+        className={`${Style.navbar} navbar navbar-expand-lg bg-body-tertiary fixed-top`}
+      >
         <div className="container">
           <NavLink className="navbar-brand" to="home">
             <img src={logo} alt="fresh cart logo" />
@@ -58,20 +67,18 @@ export default function NavBar() {
               </ul>
             ) : null}
 
-            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-              {/* <li className="nav-item d-flex gap-3 align-items-center me-2">
-                <i className="fab fa-facebook"></i>
-                <i className="fab fa-instagram"></i>
-                <i className="fab fa-linkedin"></i>
-                <i className="fab fa-github"></i>
-                <i className="fab fa-twitter"></i>
-              </li> */}
+            <ul className="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
               {userToken ? (
                 <>
-                  <li className="nav-item ">
+                  <li className="nav-item">
                     <NavLink className="nav-link cart-icon position-relative" to="/cart">
                       <i className="fa-solid fa-cart-shopping fa-xl text-main" />
-                      <div className="cart-items">0</div>
+                      <div className="cart-items">{cartItemCount}</div>
+                    </NavLink>
+                  </li>
+                  <li className={`nav-item bg-dark ${Style.profile_icon}`}>
+                    <NavLink className="nav-link" to="/profile">
+                      <img className="w-100" src={profileimg} alt="" />
                     </NavLink>
                   </li>
                   <li onClick={logOut} className="nav-item cursor-pointer">

@@ -1,9 +1,10 @@
 import axios from "axios";
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
 export let CartContext = createContext();
 
 export default function CartContextProvider(props) {
+  let [cartItemCount, setCartItemCount] = useState(0);
   let headers = { token: localStorage.getItem("freshcartUserToken") };
 
   const addToCart = async (productId) => {
@@ -51,6 +52,8 @@ export default function CartContextProvider(props) {
         deleteCartItem,
         clearAllCart,
         updateProductQuantity,
+        cartItemCount,
+        setCartItemCount,
       }}
     >
       {props.children}

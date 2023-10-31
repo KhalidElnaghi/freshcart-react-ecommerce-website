@@ -3,11 +3,11 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { UserTokenContext } from "../../Context/UserTokenContext";
+import { UserContext } from "../../Context/UserContext";
 import { Helmet } from "react-helmet";
 
 export default function Login() {
-  let { setUserToken } = useContext(UserTokenContext);
+  let { setUserToken, setUserData } = useContext(UserContext);
   let [error, setError] = useState(null);
   let [loading, setLoading] = useState(false);
   let navigate = useNavigate();
@@ -26,7 +26,9 @@ export default function Login() {
     if (data.message === "success") {
       setLoading(false);
       localStorage.setItem("freshcartUserToken", data.token);
+      localStorage.setItem("userData", JSON.stringify(data.user));
       setUserToken(data.token);
+      setUserData(data.user);
       navigate("/home");
     }
   };

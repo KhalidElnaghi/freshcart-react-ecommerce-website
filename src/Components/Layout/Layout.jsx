@@ -3,12 +3,13 @@ import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
 import { Outlet } from "react-router-dom";
 import { Offline } from "react-detect-offline";
+import Style from "./Layout.module.css";
 
 export default function Layout() {
   return (
     <>
       <NavBar />
-      <div className="container py-3">
+      <div className={`container ${Style.layout} py-3`}>
         <Outlet />
       </div>
       <div>

@@ -81,6 +81,7 @@ export default function ProductDetails() {
             <button
               onClick={() => {
                 addProduct(data.data.data._id);
+               
               }}
               className="btn bg-main text-white w-100 btn-sm mt-2"
             >
