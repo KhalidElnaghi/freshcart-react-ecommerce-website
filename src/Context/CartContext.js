@@ -5,6 +5,7 @@ export let CartContext = createContext();
 
 export default function CartContextProvider(props) {
   let [cartItemCount, setCartItemCount] = useState(0);
+  let [cartDetails, setCartDetails] = useState(null);
   let headers = { token: localStorage.getItem("freshcartUserToken") };
 
   const addToCart = async (productId) => {
@@ -54,6 +55,8 @@ export default function CartContextProvider(props) {
         updateProductQuantity,
         cartItemCount,
         setCartItemCount,
+        cartDetails,
+        setCartDetails,
       }}
     >
       {props.children}

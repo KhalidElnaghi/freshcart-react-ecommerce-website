@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
+import Style from "./Cart.module.css";
 import { Helmet } from "react-helmet";
 import { CartContext } from "../../Context/CartContext";
 import { Link } from "react-router-dom";
@@ -10,29 +11,33 @@ export default function Cart() {
     clearAllCart,
     updateProductQuantity,
     setCartItemCount,
+    cartDetails,
+    setCartDetails,
   } = useContext(CartContext);
-
-  let [cartDetails, setCartDetails] = useState(null);
 
   const getCart = async () => {
     let { data } = await getLoggedUserCart();
     setCartDetails(data);
-    setCartItemCount(data.numOfCartItems || 0);
+    setCartItemCount(data.numOfCartItems);
+    console.log(data);
   };
 
   const deleteItem = async (productId) => {
     let { data } = await deleteCartItem(productId);
     setCartDetails(data);
+    setCartItemCount(data.numOfCartItems);
   };
 
   const updateCount = async (productId, count) => {
     let { data } = await updateProductQuantity(productId, count);
     setCartDetails(data);
+    setCartItemCount(data.numOfCartItems);
   };
 
   const clearCart = async () => {
     await clearAllCart();
     setCartDetails(null);
+    setCartItemCount(0);
   };
 
   useEffect(() => {
@@ -119,9 +124,9 @@ export default function Cart() {
           })}
         </div>
       ) : (
-        <section className="d-flex justify-content-center align-items-center vh-100">
-          <div className="h2">Empty Cart</div>
-        </section>
+        <div className={Style.emptyCart}>
+          <h2>Empty Cart</h2>
+        </div>
       )}
     </>
   );

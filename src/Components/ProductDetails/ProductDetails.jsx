@@ -10,8 +10,14 @@ import toast from "react-hot-toast";
 
 export default function ProductDetails() {
   let { id } = useParams();
-  let { addToCart } = useContext(CartContext);
-  // let [productDetails, setProductDetails] = useState([]);
+  let { addToCart, getLoggedUserCart, setCartItemCount } =
+    useContext(CartContext);
+
+  const getCart = async () => {
+    let { data } = await getLoggedUserCart();
+    setCartItemCount(data.numOfCartItems);
+    console.log(data);
+  };
 
   const getProduct = () => {
     return axios.get(`https://ecommerce.routemisr.com/api/v1/products/${id}`);
@@ -81,7 +87,7 @@ export default function ProductDetails() {
             <button
               onClick={() => {
                 addProduct(data.data.data._id);
-               
+                getCart();
               }}
               className="btn bg-main text-white w-100 btn-sm mt-2"
             >
