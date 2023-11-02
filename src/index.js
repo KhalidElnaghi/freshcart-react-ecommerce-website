@@ -11,13 +11,16 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 let queryClient = new QueryClient();
 root.render(
-  <QueryClientProvider client={queryClient}>
-    <UserContextProvider>
-      <App />
-    </UserContextProvider>
-    {/* <ReactQueryDevtools initialIsOpen="false" position="top-right" /> */}
-  </QueryClientProvider>
+  
+    <QueryClientProvider client={queryClient}>
+      <UserContextProvider>
+        <App />
+      </UserContextProvider>
+      {/* <ReactQueryDevtools initialIsOpen="false" position="top-right" /> */}
+    </QueryClientProvider>
+  
 );

@@ -7,7 +7,6 @@ import Home from "./Components/Home/Home";
 import About from "./Components/About/About";
 import Products from "./Components/Products/Products";
 import Brands from "./Components/Brands/Brands";
-import Categories from "./Components/Categories/Categories";
 import Cart from "./Components/Cart/Cart";
 import NotFound from "./Components/NotFound/NotFound";
 import Contact from "./Components/Contact/Contact";
@@ -19,6 +18,8 @@ import ProductDetails from "./Components/ProductDetails/ProductDetails";
 import CartContextProvider from "./Context/CartContext";
 import { Toaster } from "react-hot-toast";
 import Profile from "./Components/Profile/Profile";
+import { Provider } from "react-redux";
+import store from "./Redux/Store";
 
 let router = createHashRouter([
   {
@@ -83,14 +84,7 @@ let router = createHashRouter([
           </ProtectedRoute>
         ),
       },
-      {
-        path: "/categories",
-        element: (
-          <ProtectedRoute>
-            <Categories />
-          </ProtectedRoute>
-        ),
-      },
+
       {
         path: "/cart",
         element: (
@@ -144,10 +138,12 @@ function App() {
       setUserToken(localStorage.getItem("freshcartUserToken"));
   }, []);
   return (
-    <CartContextProvider>
-      <RouterProvider router={router}></RouterProvider>
-      <Toaster />
-    </CartContextProvider>
+    <Provider store={store}>
+      <CartContextProvider>
+        <RouterProvider router={router}></RouterProvider>
+        <Toaster />
+      </CartContextProvider>
+    </Provider>
   );
 }
 export default App;

@@ -10,8 +10,7 @@ import toast from "react-hot-toast";
 
 export default function ProductDetails() {
   let { id } = useParams();
-  let { addToCart, getLoggedUserCart, setCartItemCount } =
-    useContext(CartContext);
+  let { addToCart, getLoggedUserCart, setCartItemCount } = useContext(CartContext);
 
   const getCart = async () => {
     let { data } = await getLoggedUserCart();
@@ -41,6 +40,7 @@ export default function ProductDetails() {
   async function addProduct(productId) {
     let response = await addToCart(productId);
     if (response.data.status === "success") {
+      getCart();
       toast.success("Product Successfully Added");
     }
   }
@@ -58,9 +58,11 @@ export default function ProductDetails() {
       <Helmet>
         <meta charSet="utf-8" />
         <title>{data?.data.data.title}</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+
       </Helmet>
       {data?.data.data ? (
-        <div className="row align-items-center">
+        <div className="row align-items-center mt-3">
           <div className="col-md-4">
             <Slider {...settings}>
               {data?.data.data.images.map((img, index) => {
@@ -87,7 +89,6 @@ export default function ProductDetails() {
             <button
               onClick={() => {
                 addProduct(data.data.data._id);
-                getCart();
               }}
               className="btn bg-main text-white w-100 btn-sm mt-2"
             >

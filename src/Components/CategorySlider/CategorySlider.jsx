@@ -19,14 +19,15 @@ export default function CategorySlider() {
     speed: 500,
   };
 
-  return ( 
+  return (
     <>
       {data?.data.data ? (
         <Slider {...settings}>
           {data?.data.data.map((category) => {
             return (
-              <div key={category._id} className="mt-3">
-                <img height={200} src={category.image} className="w-100" alt="" />
+              <div key={category._id} className="mt-3 text-center">
+                <img height={200} src={category.image} className="w-100 mb-1" alt="" />
+                <h6>{category.name}</h6>
               </div>
             );
           })}
